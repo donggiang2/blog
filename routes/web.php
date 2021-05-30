@@ -66,5 +66,52 @@ Route::get("/findwhere",function(){
     return $posts;
 });
 
+// Route::get("/findmore",function(){
+//     //$post = Post::findorfail(1);
+
+//     if($post = Post::findorfail(4))){
+//         echo 'Không có đối tượng này';
+//     }else{
+//         print_r($post);
+//     }
+//     die;
+//     return $post;
+// });
+
+Route::get("/updatenew",function(){
+    $post = Post::find(2);
+    if(empty($post)){
+        echo 'No Item';
+    }else{
+        $post->title = 'Update 2';
+        $post->content = "update content 2";
+        $post->save();
+        return "update success";
+    }
+    
+});
+
+Route::get("/create",function(){
+    
+    $post = Post::create(['title' => 'create new blog 5','content'=>'create content 5']);
+    if($post == true){
+        echo 'create thanh cong';
+    }else{
+        echo 'create that bai';
+    }
+});
+
+Route::get("/update",function(){
+    
+    $post = Post::where('id',5)->where('is_admin',0)->update(['title' => 'update new blog 4 ','content'=>'update content 4']);
+    if($post == true){
+        echo 'update thanh cong';
+    }else{
+        echo 'update that bai';
+    }
+});
+
+
+
 
 //----------------------------------------------------------------------------------
