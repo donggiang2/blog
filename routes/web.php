@@ -92,8 +92,10 @@ Route::get("/updatenew",function(){
 });
 
 Route::get("/create",function(){
+    for($i=1;$i<=5;$i++){
+        $post = Post::create(['title' => 'create new blog '.$i,'content'=>'create content '.$i]);
+    }
     
-    $post = Post::create(['title' => 'create new blog 5','content'=>'create content 5']);
     if($post == true){
         echo 'create thanh cong';
     }else{
@@ -111,7 +113,32 @@ Route::get("/update",function(){
     }
 });
 
+Route::get("/softdelete",function(){
+    $post = Post::where('id',4)->delete();
+    return $post;
+});
 
+Route::get("/showDeleted",function(){
+    $post = Post::onlyTrashed()->get();
+    if($post->count() == 0){
+        
+        return "no item";
+    }else{
+        return $post;
+    }
+    
+    
+});
+
+Route::get("/restore",function(){
+    $post = Post::where('id',4)->restore();
+    return $post;
+});
+
+Route::get("/forceDelete",function(){
+    $post = Post::onlyTrashed()->where('id',4)->forceDelete();
+    return $post;
+});
 
 
 //----------------------------------------------------------------------------------
