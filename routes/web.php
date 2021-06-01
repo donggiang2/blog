@@ -66,5 +66,57 @@ Route::get("/findwhere",function(){
     return $posts;
 });
 
+Route::get("/basicinsert",function(){
+    // $post = Post::findorfail(1);
+    // return $post;
+
+    // $post->title = 'Demo 5';
+    // $post->content = 'Demo content 5';
+    Post::create(['title' => 'Demo 7','content'=>'Demo Content 7']);
+    // $post = Post::where('id','>',3)->get();
+    // return $post;
+});
+
+Route::get("/update",function(){
+    $post = Post::where('id',2)->where('is_admin',0)->update(['title' =>'update title 3','content'=>'update content 3']);
+    if($post == true){
+        echo 'update ok';
+    }else{
+        echo 'update fail';
+    }
+});
+
+Route::get("/delete",function(){
+    // $post = Post::find(1);
+    // $post->delete();
+
+    $post= Post::destroy([4,6]);
+    if($post == true){
+        echo 'xoa thanh cong';
+    }else{
+        echo 'xoa that bai';
+    }
+});
+
+Route::get("/softdelete",function(){
+    $post = Post::find(7)->delete();
+    if($post == true){
+        echo "delete thanh cong";
+    }else{
+        echo "delete That bai";
+    }
+});
+
+Route::get("/getDeleteItem",function(){
+    // $post = Post::all();
+    $post = Post::onlyTrashed()->get();
+    print_r($post);
+});
+
+Route::get("/restore",function(){
+    $post = Post::where("id",7)->restore();
+    
+});
+
 
 //----------------------------------------------------------------------------------
