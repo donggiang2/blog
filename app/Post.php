@@ -9,8 +9,8 @@ class Post extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
     // protected $table = 'posts';
     // protected $primaryKey = 'id';
-    protected $fillable = ['title','content'];
+    protected $fillable= ['title','content'];
+
 }

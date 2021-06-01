@@ -66,56 +66,80 @@ Route::get("/findwhere",function(){
     return $posts;
 });
 
-Route::get("/basicinsert",function(){
-    // $post = Post::findorfail(1);
-    // return $post;
 
-    // $post->title = 'Demo 5';
-    // $post->content = 'Demo content 5';
-    Post::create(['title' => 'Demo 7','content'=>'Demo Content 7']);
-    // $post = Post::where('id','>',3)->get();
-    // return $post;
+// Route::get("/findmore",function(){
+//     //$post = Post::findorfail(1);
+
+//     if($post = Post::findorfail(4))){
+//         echo 'Không có đối tượng này';
+//     }else{
+//         print_r($post);
+//     }
+//     die;
+//     return $post;
+// });
+
+Route::get("/updatenew",function(){
+    $post = Post::find(2);
+    if(empty($post)){
+        echo 'No Item';
+    }else{
+        $post->title = 'Update 2';
+        $post->content = "update content 2";
+        $post->save();
+        return "update success";
+    }
+    
 });
 
-Route::get("/update",function(){
-    $post = Post::where('id',2)->where('is_admin',0)->update(['title' =>'update title 3','content'=>'update content 3']);
+Route::get("/create",function(){
+    for($i=1;$i<=5;$i++){
+        $post = Post::create(['title' => 'create new blog '.$i,'content'=>'create content '.$i]);
+    }
+    
     if($post == true){
-        echo 'update ok';
+        echo 'create thanh cong';
     }else{
-        echo 'update fail';
+        echo 'create that bai';
     }
 });
 
-Route::get("/delete",function(){
-    // $post = Post::find(1);
-    // $post->delete();
-
-    $post= Post::destroy([4,6]);
+Route::get("/update",function(){
+    
+    $post = Post::where('id',5)->where('is_admin',0)->update(['title' => 'update new blog 4 ','content'=>'update content 4']);
     if($post == true){
-        echo 'xoa thanh cong';
+        echo 'update thanh cong';
     }else{
-        echo 'xoa that bai';
+        echo 'update that bai';
     }
 });
 
 Route::get("/softdelete",function(){
-    $post = Post::find(7)->delete();
-    if($post == true){
-        echo "delete thanh cong";
-    }else{
-        echo "delete That bai";
-    }
+    $post = Post::where('id',4)->delete();
+    return $post;
 });
 
-Route::get("/getDeleteItem",function(){
-    // $post = Post::all();
+Route::get("/showDeleted",function(){
     $post = Post::onlyTrashed()->get();
-    print_r($post);
+    if($post->count() == 0){
+        
+        return "no item";
+    }else{
+        return $post;
+    }
+    
+    
 });
 
 Route::get("/restore",function(){
-    $post = Post::where("id",7)->restore();
-    
+    $post = Post::where('id',4)->restore();
+    return $post;
+});
+
+Route::get("/forceDelete",function(){
+    $post = Post::onlyTrashed()->where('id',4)->forceDelete();
+    return $post;
+
 });
 
 
