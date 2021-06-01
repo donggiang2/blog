@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,7 +95,7 @@ Route::get("/updatenew",function(){
 
 Route::get("/create",function(){
     for($i=1;$i<=5;$i++){
-        $post = Post::create(['title' => 'create new blog '.$i,'content'=>'create content '.$i]);
+        $post = Post::create(['user_id'=> 1,'title' => 'create new blog '.$i,'content'=>'create content '.$i]);
     }
     
     if($post == true){
@@ -144,3 +145,11 @@ Route::get("/forceDelete",function(){
 
 
 //----------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------
+//ELOQUENT RELATIONSHIP
+//----------------------------------------------------------------------------------
+Route::get("/user/{id}/post",function($id){
+    return User::find($id)->post->get();
+    
+});
