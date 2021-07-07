@@ -19,9 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 //--------------------------RAW SQL------------------------------------------------
-Route::get('/insert',function(){
-    DB::insert('insert into posts(title,content) value (?,?)', ['tieu de 1','noi dung dong Thu 1']);   
-});
+// Route::get('/insert',function(){
+//     DB::insert('insert into posts(title,content) value (?,?)', ['tieu de 1','noi dung dong Thu 1']);   
+// });
 
 // Route::get("/read",function(){
 //     $results = DB::select("select * from posts");
@@ -47,25 +47,25 @@ Route::get('/insert',function(){
 //-------------------ELOQUENT-------------------------------------------------------
 use App\Post;
 
-Route::get("/read",function(){
-    $posts = Post::all();
-    foreach($posts as $post){
-        echo $post->title;
-    }
-});
+// Route::get("/read",function(){
+//     $posts = Post::all();
+//     foreach($posts as $post){
+//         echo $post->title;
+//     }
+// });
 
-Route::get("/find",function(){
-    $posts = Post::find(3);
-    return $posts->title;
-    // foreach($posts as $post){
-    //     echo $post->title;
-    // }
-});
+// Route::get("/find",function(){
+//     $posts = Post::find(3);
+//     return $posts->title;
+//     // foreach($posts as $post){
+//     //     echo $post->title;
+//     // }
+// });
 
-Route::get("/findwhere",function(){
-    $posts = Post::where('title','like','%tieu de%')->orderBy('id','desc')->get();
-    return $posts;
-});
+// Route::get("/findwhere",function(){
+//     $posts = Post::where('title','like','%tieu de%')->orderBy('id','desc')->get();
+//     return $posts;
+// });
 
 
 // Route::get("/findmore",function(){
@@ -80,68 +80,68 @@ Route::get("/findwhere",function(){
 //     return $post;
 // });
 
-Route::get("/updatenew",function(){
-    $post = Post::find(2);
-    if(empty($post)){
-        echo 'No Item';
-    }else{
-        $post->title = 'Update 2';
-        $post->content = "update content 2";
-        $post->save();
-        return "update success";
-    }
+// Route::get("/updatenew",function(){
+//     $post = Post::find(2);
+//     if(empty($post)){
+//         echo 'No Item';
+//     }else{
+//         $post->title = 'Update 2';
+//         $post->content = "update content 2";
+//         $post->save();
+//         return "update success";
+//     }
     
-});
+// });
 
-Route::get("/create",function(){
-    for($i=1;$i<=5;$i++){
-        $post = Post::create(['user_id'=> 1,'title' => 'create new blog '.$i,'content'=>'create content '.$i]);
-    }
+// Route::get("/create",function(){
+//     for($i=1;$i<=5;$i++){
+//         $post = Post::create(['user_id'=> 1,'title' => 'create new blog '.$i,'content'=>'create content '.$i]);
+//     }
     
-    if($post == true){
-        echo 'create thanh cong';
-    }else{
-        echo 'create that bai';
-    }
-});
+//     if($post == true){
+//         echo 'create thanh cong';
+//     }else{
+//         echo 'create that bai';
+//     }
+// });
 
-Route::get("/update",function(){
+// Route::get("/update",function(){
     
-    $post = Post::where('id',5)->where('is_admin',0)->update(['title' => 'update new blog 4 ','content'=>'update content 4']);
-    if($post == true){
-        echo 'update thanh cong';
-    }else{
-        echo 'update that bai';
-    }
-});
+//     $post = Post::where('id',5)->where('is_admin',0)->update(['title' => 'update new blog 4 ','content'=>'update content 4']);
+//     if($post == true){
+//         echo 'update thanh cong';
+//     }else{
+//         echo 'update that bai';
+//     }
+// });
 
-Route::get("/softdelete",function(){
-    $post = Post::where('id',4)->delete();
-    return $post;
-});
+// Route::get("/softdelete",function(){
+//     $post = Post::where('id',4)->delete();
+//     return $post;
+// });
 
-Route::get("/showDeleted",function(){
-    $post = Post::onlyTrashed()->get();
-    if($post->count() == 0){
+// Route::get("/showDeleted",function(){
+//     $post = Post::onlyTrashed()->get();
+//     if($post->count() == 0){
         
-        return "no item";
-    }else{
-        return $post;
-    }
+//         return "no item";
+//     }else{
+//         return $post;
+//     }
     
     
-});
+// });
 
-Route::get("/restore",function(){
-    $post = Post::where('id',4)->restore();
-    return $post;
-});
+// Route::get("/restore",function(){
+//     $post = Post::where('id',4)->restore();
+//     return $post;
+// });
 
-Route::get("/forceDelete",function(){
-    $post = Post::onlyTrashed()->where('id',4)->forceDelete();
-    return $post;
+// Route::get("/forceDelete",function(){
+//     $post = Post::onlyTrashed()->where('id',4)->forceDelete();
+//     return $post;
 
-});
+// });
 
 
 //----------------------------------------------------------------------------------
@@ -149,7 +149,10 @@ Route::get("/forceDelete",function(){
 //----------------------------------------------------------------------------------
 //ELOQUENT RELATIONSHIP
 //----------------------------------------------------------------------------------
-Route::get("/user/{id}/post",function($id){
-    return User::find($id)->post->get();
+// Route::get("/user/{id}/post",function($id){
+//     return User::find($id)->post->get();
     
-});
+// });
+
+
+Route::resource('/posts', 'PostsController');
