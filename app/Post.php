@@ -11,7 +11,7 @@ class Post extends Model
 
     // protected $table = 'posts';
     // protected $primaryKey = 'id';
-    protected $fillable= ['title','content'];
+    protected $fillable= ['id','title','content'];
 
     public function user(){
         return $this->beLongsTo("App\User");

@@ -156,3 +156,4 @@ use App\Post;
 
 
 Route::resource('/posts', 'PostsController');
+Route::get("/delete/{id}",'PostsController@delete2')->name('delete2');
